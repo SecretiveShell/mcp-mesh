@@ -1,7 +1,14 @@
 from fastapi import FastAPI
 
-app = FastAPI()
+from mcp_mesh.lifespan import lifespan
+from mcp_mesh import server
+
+app = FastAPI(lifespan=lifespan)
 
 @app.get("/")
-def read_root():
+async def read_root():
     return {"Hello": "World"}
+
+@app.get("/nodes")
+async def read_nodes():
+    return {"nodes": server.node.bootstrappable_neighbors()}
