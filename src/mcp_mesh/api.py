@@ -1,3 +1,4 @@
+import json
 from fastapi import FastAPI
 
 from mcp_mesh.lifespan import lifespan
@@ -17,3 +18,15 @@ async def read_nodes():
 @app.get("/config")
 async def read_config():
     return {"config": config.model_dump()}
+
+@app.get("/tools")
+async def read_tools():
+    server.node.refresh_table()
+    
+    tools = dict(server.node.storage.data).values()
+    print(tools)
+
+    for tool in tools:
+        tool = json.loads(tool[1])
+
+    return {"tools": tools}

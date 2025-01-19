@@ -73,7 +73,10 @@ services:
           "mcp_servers": [
             {
               "command": "uvx",
-              "args": ["mcp-wolfram-alpha"]
+              "args": ["mcp-wolfram-alpha"],
+              "env": {
+                "WOLFRAM_API_KEY": "1234567890"
+              }
             }
           ]
         }
