@@ -1,7 +1,7 @@
 from kademlia.network import Server
 from loguru import logger
-import asyncio
-import os
+from mcp_mesh.configuration import config
+
 
 node = Server()
 
@@ -10,6 +10,7 @@ async def run_server():
     logger.info("Server started and listening on port 5678")
     
     # bootstrap node
-    bootstrap = os.getenv("BOOTSTRAP_NODE", "localhost:5678")
-    bootstrap = bootstrap.split(":")
-    await node.bootstrap([(bootstrap[0], int(bootstrap[1]))])
+    initial = config.bootstrap.bootstrap_node.split(":")
+    await node.bootstrap([(initial[0], int(initial[1]))])
+
+    return node
