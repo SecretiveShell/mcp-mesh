@@ -1,0 +1,24 @@
+[project]
+name = "mcp-mesh"
+version = "0.1.0"
+description = "p2p mesh overlay network for use with MCP servers" 
+readme = "README.md"
+authors = [
+    { name = "TerminalMan", email = "84923604+SecretiveShell@users.noreply.github.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115.6",
+    "kademlia>=2.2.2",
+    "loguru>=0.7.3",
+    "mcp>=1.2.0",
+    "uvicorn>=0.34.0",
+]
+
+[project.scripts]
+mcp-mesh = "mcp_mesh:main"
+mcp-mesh-init = "mcp_mesh:create_initial_node"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

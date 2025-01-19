@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  bootstrap:
+    build:
+      context: .
+      dockerfile: bootstrap.dockerfile
+    ports:
+      - "5678:5678"  # Exposing port for the bootstrap node
+
+  app_node_1:
+    build:
+      context: .
+      dockerfile: node.dockerfile
+    ports:
+      - "5679:5678"  # Change the external port for each node
+      - "8081:8080"  # Change the external port for each node
+    environment:
+      - BOOTSTRAP_NODE=bootstrap:5678  # Pointing to the bootstrap node
+    depends_on:
+      - bootstrap
+
+  app_node_2:
+    build:
+      context: .
+      dockerfile: node.dockerfile
+    ports:
+      - "5680:5678"  # Change the external port for each node
+      - "8082:8080"  # Change the external port for each node
+    environment:
+      - BOOTSTRAP_NODE=bootstrap:5678
+    depends_on:
+      - bootstrap
+
+  app_node_3:
+    build:
+      context: .
+      dockerfile: node.dockerfile
+    ports:
+      - "5681:5678"  # Change the external port for each node
+      - "8083:8080"  # Change the external port for each node
+    environment:
+      - BOOTSTRAP_NODE=bootstrap:5678
+    depends_on:
+      - bootstrap
+
+networks:
+  default:
+    driver: bridge
